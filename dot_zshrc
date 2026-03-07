@@ -111,8 +111,8 @@ source $ZSH/oh-my-zsh.sh
         https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 source ~/Repos/znap/znap.zsh  # Start Znap
 
-znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-syntax-highlighting
+znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 
 # highlighting
@@ -133,8 +133,6 @@ export PATH=$PATH:$GOPATH/bin
 #zstyle ':completion:*' menu select
 #fpath+=~/.zfunc
 
-. "$HOME/.cargo/env"
-eval "$(uv generate-shell-completion zsh)"
 
 
 _dotnet_zsh_complete()
@@ -157,6 +155,7 @@ compdef _dotnet_zsh_complete dotnet
 
 eval "$(zellij setup --generate-auto-start zsh)"
 
+. "$HOME/.local/share/../bin/env"
 
 # Auto-activate Python virtual environment
 auto_activate_venv() {
@@ -189,6 +188,9 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+. "$HOME/.cargo/env"
+eval "$(uv generate-shell-completion zsh)"
+
 # aliases
 alias pr="pnpm run"
 alias ur="uv run"
@@ -197,3 +199,5 @@ alias m='make'
 alias dc="docker compose"
 alias dcub="docker compose up --build"
 alias dcd="docker compose -f docker-compose.dev.yaml up --build"
+eval "$(uvx --generate-shell-completion zsh)"
+
