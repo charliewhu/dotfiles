@@ -1,0 +1,156 @@
+# #theme = "starlight"
+theme = 'dark_plus'
+
+[editor]
+true-color = true
+bufferline = "multiple"
+auto-format = true
+mouse = false
+line-number = "relative"
+end-of-line-diagnostics = 'hint'
+popup-border = 'all'
+scrolloff = 5
+cursorline = true
+auto-info = true
+soft-wrap.enable = true
+
+[editor.file-picker]
+hidden = false # to show .hidden files
+
+[editor.statusline]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+right = ["diagnostics", "selections", "position","position-percentage", "file-encoding"]
+
+[editor.lsp]
+display-inlay-hints = true
+inlay-hints-length-limit = 15
+auto-signature-help = false
+display-messages = true
+
+[editor.inline-diagnostics]
+cursor-line = 'hint'
+other-lines = "disable"
+
+[editor.cursor-shape]
+insert = 'bar'
+select = 'underline'
+
+[keys.normal]
+a = ["append_mode", "collapse_selection"]
+esc = ["collapse_selection", "keep_primary_selection"]
+d = "delete_selection_noyank"
+D = 'kill_to_line_end'
+c = "change_selection_noyank"
+V = ["goto_first_nonwhitespace", "extend_to_line_end"]
+L = "goto_line_end"
+H = "goto_first_nonwhitespace"
+# C-s = ':w!'
+y = [':clipboard-yank', 'yank']
+backspace = 'goto_word' # gw
+C-v = [':clipboard-paste-before']
+C-space = 'signature_help'
+C-x = 'completion'
+# move selection up/down
+C-k = [ "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before" ]
+C-j = [ "extend_to_line_bounds", "delete_selection", "move_line_down", "paste_before" ]
+
+# https://int8.tech/posts/repl-programming-helix-zellij-devenv/
+C-ret = [
+  "goto_first_nonwhitespace",
+  "select_mode",
+  "extend_to_line_end",
+  ":sh zellij ac move-focus-or-tab right",
+  ":pipe-to sh -c 'zellij ac write-chars \"$(cat)\n\"'",
+  ":sh zellij ac move-focus-or-tab left",
+  "move_visual_line_down",
+  "goto_first_nonwhitespace",
+  "collapse_selection",
+  "normal_mode"
+]
+
+[keys.normal.","]
+d=["save_selection", "extend_to_line_bounds", "yank", "paste_before", "jump_backward" ]
+D=["save_selection", "extend_to_line_bounds", "toggle_comments", "yank", "paste_before", "jump_backward","toggle_comments" ]
+
+[keys.normal.C-a]
+C-a = ":sh zellij ac toggle-floating-panes"
+h = ":sh zellij ac new-pane -d down"
+n = ":sh zellij ac new-pane"
+r = [
+  ":sh zellij action new-pane -- sh -c \"cd $(pwd); exec $SHELL;\" && zellij ac write-chars 'py\n' && zellij ac move-focus left"
+]
+v = ":sh zellij ac new-pane -d right"
+z = ":sh zellij ac toggle-fullscreen"
+
+[keys.normal.space]
+"." = "file_picker_in_current_buffer_directory"
+
+[keys.normal.m]
+# allow selecting inside next pair from outside
+"\"" = "@f\";vmi\""
+"'"  = "@f';vmi'"
+"[" = "@f[;vmi]"
+"(" = "@f(;vmi)"
+"<"  = "@f<gt>;vmi<lt>"
+"{" = "@f{;vmi}"
+
+[keys.insert]
+C-v = [':clipboard-paste-before']
+C-x = 'completion'
+C-space = 'signature_help'
+C-ret = [
+  "goto_first_nonwhitespace",
+  "select_mode",
+  "extend_to_line_end",
+  ":sh zellij ac move-focus-or-tab right",
+  ":pipe-to sh -c 'zellij ac write-chars \"$(cat)\n\"'",
+  ":sh zellij ac move-focus-or-tab left",
+  "move_visual_line_down",
+  "goto_first_nonwhitespace",
+  "collapse_selection",
+  "normal_mode"
+]
+
+[keys.select]
+v = "expand_selection"
+V = "shrink_selection"
+D = 'kill_to_line_end'
+d = "delete_selection_noyank"
+c = "change_selection_noyank"
+y = [':clipboard-yank', 'yank']
+backspace = 'extend_to_word' # gw
+";" = ["collapse_selection", "normal_mode"]
+A-k = [ "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before" ]
+A-j = [ "extend_to_line_bounds", "delete_selection", "move_line_down", "paste_before" ]
+C-ret = [
+  ":sh zellij ac move-focus-or-tab right",
+  ":pipe-to sh -c 'zellij ac write-chars \"$(cat)\n\"'",
+  ":sh zellij ac move-focus-or-tab left",
+  "collapse_selection",
+  "move_visual_line_down",
+  "goto_first_nonwhitespace",
+  "collapse_selection",
+  "normal_mode"
+]
+
+# git
+[keys.normal.space.l]
+l = ":sh zellij run -f -n lazygit --width 90%% --height 90%% -x 5%% -y 5%%  -c -- lazygit"
+r = ":reset-diff-change"
+
+# zellij
+# tasks / terminal / zellij
+[keys.normal.space.z]
+n = ":sh zellij action new-pane -d right"
+u = "expand_selection"
+d = "shrink_selection"
+t = ":sh zellij action new-pane -f -x 10%% -y 10%% --width 80%% --height 80%%  " # Open the file(s) in the current window
+
+# code things
+[keys.normal.space.c]
+o = ":open ~/.config/helix/config.toml"
+
+r = ":config-reload"
+l = ":lsp-restart"
