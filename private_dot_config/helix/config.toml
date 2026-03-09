@@ -38,11 +38,11 @@ insert = 'bar'
 select = 'underline'
 
 [keys.normal]
-a = ["append_mode", "collapse_selection"]
 esc = ["collapse_selection", "keep_primary_selection"]
+a = ["append_mode", "collapse_selection"]
+c = "change_selection_noyank"
 d = "delete_selection_noyank"
 D = 'kill_to_line_end'
-c = "change_selection_noyank"
 V = ["goto_first_nonwhitespace", "extend_to_line_end"]
 L = "goto_line_end"
 H = "goto_first_nonwhitespace"
@@ -51,7 +51,7 @@ y = [':clipboard-yank', 'yank']
 backspace = 'goto_word' # gw
 C-v = [':clipboard-paste-before']
 C-space = 'signature_help'
-C-x = 'completion'
+C-c = 'completion'
 # move selection up/down
 C-k = [ "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before" ]
 C-j = [ "extend_to_line_bounds", "delete_selection", "move_line_down", "paste_before" ]
@@ -74,16 +74,6 @@ C-ret = [
 d=["save_selection", "extend_to_line_bounds", "yank", "paste_before", "jump_backward" ]
 D=["save_selection", "extend_to_line_bounds", "toggle_comments", "yank", "paste_before", "jump_backward","toggle_comments" ]
 
-[keys.normal.C-a]
-C-a = ":sh zellij ac toggle-floating-panes"
-h = ":sh zellij ac new-pane -d down"
-n = ":sh zellij ac new-pane"
-r = [
-  ":sh zellij action new-pane -- sh -c \"cd $(pwd); exec $SHELL;\" && zellij ac write-chars 'py\n' && zellij ac move-focus left"
-]
-v = ":sh zellij ac new-pane -d right"
-z = ":sh zellij ac toggle-fullscreen"
-
 [keys.normal.space]
 "." = "file_picker_in_current_buffer_directory"
 
@@ -98,7 +88,7 @@ z = ":sh zellij ac toggle-fullscreen"
 
 [keys.insert]
 C-v = [':clipboard-paste-before']
-C-x = 'completion'
+C-c = 'completion'
 C-space = 'signature_help'
 C-ret = [
   "goto_first_nonwhitespace",
@@ -124,6 +114,8 @@ backspace = 'extend_to_word' # gw
 ";" = ["collapse_selection", "normal_mode"]
 A-k = [ "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before" ]
 A-j = [ "extend_to_line_bounds", "delete_selection", "move_line_down", "paste_before" ]
+
+# Send to Python REPL
 C-ret = [
   ":sh zellij ac move-focus-or-tab right",
   ":pipe-to sh -c 'zellij ac write-chars \"$(cat)\n\"'",
@@ -143,14 +135,18 @@ r = ":reset-diff-change"
 # zellij
 # tasks / terminal / zellij
 [keys.normal.space.z]
-n = ":sh zellij action new-pane -d right"
-u = "expand_selection"
-d = "shrink_selection"
-t = ":sh zellij action new-pane -f -x 10%% -y 10%% --width 80%% --height 80%%  " # Open the file(s) in the current window
+u = ":sh zellij action new-pane -d up -- sh -c \"cd $(pwd); exec $SHELL;\""
+d = ":sh zellij action new-pane -d down -- sh -c \"cd $(pwd); exec $SHELL;\""
+l = ":sh zellij action new-pane -d left -- sh -c \"cd $(pwd); exec $SHELL;\""
+r = ":sh zellij action new-pane -d right -- sh -c \"cd $(pwd); exec $SHELL;\""
+f = ":sh zellij action new-pane -f -x 10%% -y 10%% --width 80%% --height 80%%  -- sh -c \"cd $(pwd); exec $SHELL;\"" # Open a floating pane
+z = ":sh zellij ac toggle-fullscreen"
+p = [ # Open a python REPL
+  ":sh zellij action new-pane -- sh -c \"cd $(pwd); exec $SHELL;\" && zellij ac write-chars 'py\n' && zellij ac move-focus left"
+]
 
 # code things
 [keys.normal.space.c]
 o = ":open ~/.config/helix/config.toml"
-
 r = ":config-reload"
 l = ":lsp-restart"
