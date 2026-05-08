@@ -133,8 +133,6 @@ export PATH=$PATH:$GOPATH/bin
 #zstyle ':completion:*' menu select
 #fpath+=~/.zfunc
 
-
-
 _dotnet_zsh_complete()
 {
   local completions=("$(dotnet complete "$words")")
@@ -201,3 +199,4 @@ alias dcub="docker compose up --build"
 alias dcd="docker compose -f docker-compose.dev.yaml up --build"
 eval "$(uvx --generate-shell-completion zsh)"
 
+alias cm="chezmoi"
