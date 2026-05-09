@@ -189,6 +189,12 @@ export NVM_DIR="$HOME/.config/nvm"
 . "$HOME/.cargo/env"
 eval "$(uv generate-shell-completion zsh)"
 
+# Chezmoi completions
+fpath=(~/.config/chezmoi/completions $fpath)
+autoload -Uz compinit
+compinit
+
+
 # aliases
 alias pr="pnpm run"
 alias ur="uv run"
