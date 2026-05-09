@@ -200,3 +200,5 @@ alias dcd="docker compose -f docker-compose.dev.yaml up --build"
 eval "$(uvx --generate-shell-completion zsh)"
 
 alias cm="chezmoi"
+alias cma="cm re-add" # push
+alias cmu="cm update" # pull
