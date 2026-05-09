@@ -190,7 +190,7 @@ export NVM_DIR="$HOME/.config/nvm"
 eval "$(uv generate-shell-completion zsh)"
 
 # Chezmoi completions
-fpath=(~/.config/chezmoi/completions $fpath)
+fpath=(~/.oh-my-zsh/custom/completions $fpath)
 autoload -Uz compinit
 compinit
 
