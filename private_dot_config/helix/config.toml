@@ -51,7 +51,7 @@ y = [':clipboard-yank', 'yank']
 backspace = 'goto_word' # gw
 C-v = [':clipboard-paste-before']
 C-space = 'signature_help'
-C-c = 'completion'
+C-x = 'completion'
 # move selection up/down
 C-k = [ "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before" ]
 C-j = [ "extend_to_line_bounds", "delete_selection", "move_line_down", "paste_before" ]
